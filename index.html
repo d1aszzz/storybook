@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bilimup — English Platform</title>
+<style>
+:root{--bg:#0b1024;--tx:#eaf0ff;--mu:#93a0c6;--ac:#5eead4;--ac2:#8b5cf6;--ok:#34d399;--bad:#f87171;--wn:#fbbf24;--gl:rgba(255,255,255,.06);--bd:rgba(255,255,255,.13);--in:rgba(0,0,0,.25);--sf:#141a3a;--hv:rgba(255,255,255,.08);--g1:#26307a55;--g2:#0f766e55;color-scheme:dark}
+[data-theme=light]{--bg:#eef2ff;--tx:#1b2140;--mu:#5b6488;--ac:#0d9488;--ok:#059669;--bad:#dc2626;--wn:#b45309;--gl:rgba(255,255,255,.72);--bd:rgba(30,40,100,.15);--in:rgba(255,255,255,.9);--sf:#fff;--hv:rgba(30,40,100,.07);--g1:#a5b4fc77;--g2:#99f6e488;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tx);background:radial-gradient(900px 600px at 10% -10%,var(--g1),transparent),radial-gradient(700px 500px at 100% 100%,var(--g2),transparent),var(--bg);display:flex;line-height:1.5}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.glass{background:var(--gl);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+aside{width:270px;flex:none;padding:18px;display:flex;flex-direction:column;gap:16px;height:100%;overflow:auto;border-radius:0 22px 22px 0;z-index:20;transition:transform .3s}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.3px}.logo small{display:block;font-weight:500;font-size:12px;color:var(--mu)}
+.prof{display:flex;gap:12px;align-items:center;padding:12px}
+.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--ac2),var(--ac));display:grid;place-items:center;font-weight:800;font-size:20px;color:#0b1024;flex:none}
+.prof b{display:block}.prof span{font-size:13px;color:var(--mu)}
+nav{display:flex;flex-direction:column;gap:6px}
+nav button{background:none;border:1px solid transparent;text-align:left;padding:11px 13px;border-radius:12px;color:var(--mu);transition:.2s}
+nav button:hover{background:var(--gl);color:var(--tx)}
+nav button.on{background:linear-gradient(90deg,#8b5cf633,#5eead422);border-color:var(--bd);color:var(--tx)}
+main{flex:1;min-width:0;height:100%;overflow:auto;padding:26px 30px 110px}
+.fade{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:28px;letter-spacing:-.5px;margin-bottom:6px}h2{font-size:19px;margin:24px 0 12px}
+p.sub{color:var(--mu);margin-bottom:16px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.card{padding:16px}
+.stat b{font-size:30px;display:block;letter-spacing:-1px}.stat span{color:var(--mu);font-size:13px}
+.bar{height:8px;border-radius:9px;background:var(--hv);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac));transition:width .5s}
+.lv{cursor:pointer;text-align:left;transition:.2s}.lv:hover{transform:translateY(-3px)}.lv.on{border-color:var(--ac)}
+.lv b{font-size:24px}
+.btn{background:linear-gradient(90deg,var(--ac2),#6366f1);border:0;padding:11px 20px;border-radius:12px;font-weight:700;color:#fff;transition:.2s}
+.btn:hover{filter:brightness(1.12)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.g{background:var(--gl);border:1px solid var(--bd)}
+.ls{display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:8px;width:100%;text-align:left;border-radius:14px;background:var(--gl);border:1px solid var(--bd)}
+.ls[data-s=lock]{opacity:.5;cursor:not-allowed}.ls em{margin-left:auto;font-style:normal;font-size:13px}
+.two{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.vid{aspect-ratio:16/9;width:100%;border:0;border-radius:14px;background:#000}
+textarea{width:100%;min-height:150px;margin-top:12px;background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px;resize:vertical}
+.cnt{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:99px;font-weight:700;font-size:13px}
+.cnt.r,.bg.r{background:#f8717133;color:var(--bad)}.cnt.g,.bg.g{background:#34d39933;color:var(--ok)}
+.bg{font-size:12px;padding:3px 10px;border-radius:99px;margin-left:8px;vertical-align:middle;font-weight:600}
+.art{margin-bottom:14px;color:var(--tx);max-width:70ch}
+.q{margin-bottom:14px}.opt{display:block;width:100%;text-align:left;margin-top:6px;padding:9px 13px;border-radius:10px;background:var(--hv);border:1px solid var(--bd);transition:.15s}
+.opt:hover{border-color:var(--ac)}.opt.ok,input.ok{background:#34d39926;border-color:var(--ok)}.opt.bad,input.bad{background:#f8717126;border-color:var(--bad)}
+.gap{line-height:2.4;font-size:17px;max-width:70ch}
+.gap input{background:var(--in);border:1px solid var(--bd);border-radius:8px;padding:3px 8px;text-align:center;min-width:60px}
+input.nm{width:100%;padding:12px;margin:10px 0;border-radius:12px;border:1px solid var(--bd);background:var(--in)}
+.mod{position:fixed;inset:0;background:rgba(5,8,20,.75);backdrop-filter:blur(6px);display:grid;place-items:center;z-index:60;padding:16px}
+.mod .glass{max-width:440px;width:100%;padding:26px;background:var(--sf)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chips button{padding:8px 16px;border-radius:99px;background:var(--gl);border:1px solid var(--bd)}
+#fab{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:0;font-size:26px;background:linear-gradient(135deg,var(--ac2),var(--ac));box-shadow:0 8px 24px #8b5cf688;z-index:40;transition:.2s}
+#fab:hover{transform:scale(1.08)}
+#chat{position:fixed;right:20px;bottom:90px;width:360px;max-width:calc(100vw - 32px);height:460px;max-height:calc(100% - 120px);display:none;flex-direction:column;z-index:41;background:var(--sf);overflow:hidden}
+#chat.open{display:flex;animation:in .25s}
+#chat header{padding:12px 16px;font-weight:700;border-bottom:1px solid var(--bd)}
+#msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:85%;padding:9px 13px;border-radius:14px;font-size:14px;white-space:pre-wrap}.m.u{align-self:flex-end;background:var(--ac2)}.m.b{background:var(--hv)}
+#cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd)}#cf input{flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--in)}
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f766e;padding:10px 20px;border-radius:12px;z-index:80;display:none;font-weight:600}
+#burger{display:none}
+@media(max-width:820px){
+body{display:block}
+aside{position:fixed;left:0;top:0;transform:translateX(-105%);background:var(--sf);width:280px}
+aside.open{transform:none}
+#burger{display:block;position:fixed;top:12px;left:12px;z-index:30;padding:8px 13px;border-radius:12px;background:var(--sf);border:1px solid var(--bd)}
+main{padding:64px 16px 110px}.two{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.rec{background:#ef4444!important;animation:pl 1s infinite}@keyframes pl{50%{opacity:.6}}
+.err{border-left:3px solid var(--bad);padding:8px 12px;margin:8px 0;background:var(--hv);border-radius:8px}.err.good{border-color:var(--ok)}
+.mk{background:#f8717155;color:inherit;border-radius:4px;padding:0 2px}
+.wd{display:grid;grid-template-columns:1fr 1.4fr auto auto;gap:10px;align-items:center;padding:10px 14px;margin-bottom:6px;border-radius:12px;background:var(--gl);border:1px solid var(--bd)}.wd small{color:var(--mu)}
+@media(max-width:820px){.wd{grid-template-columns:1fr auto}.wd small{grid-column:1}}
+</style>
+</head>
+<body>
+<button id="burger" aria-label="Меню">☰</button>
+<aside class="glass">
+  <div class="logo">✦ Bilimup<small>English Platform</small></div>
+  <div class="prof glass"><div class="av" id="av">?</div><div><b id="pn">Гость</b><span id="pl"></span><br><span id="ps"></span></div></div>
+  <nav id="nav"></nav>
+  <button class="btn g" id="th" style="margin-top:auto"></button>
+</aside>
+<main id="main"></main>
+<button id="fab" aria-label="Открыть AI-тьютора">🤖</button>
+<section id="chat" class="glass" aria-label="Bilimup AI">
+  <header>🤖 Bilimup AI — тьютор</header>
+  <div id="msgs"></div>
+  <div id="cf"><input id="ci" placeholder="Спросите про грамматику..." autocomplete="off"><button class="btn" id="cs">→</button></div>
+</section>
+<div id="toast"></div>
+<div id="ob" class="mod" style="display:none"></div>
+
+<script>
+/* ---------- ДАННЫЕ ---------- */
+const LV=['A1','A2','B1','B2','C1'];
+/* YouTube ID из вашего архива A1_Listening.zip (урок N → N-е видео; у C1 одно видео на все уроки) */
+const VID={
+A1:['uVGV8LG3HHM','eYAaLWdx_h0','erjMgola4fQ','2XRnB4wy4yA','98pYyFdHw38','aQ0w2I0Eb9I','Y6CERK3AXCw','uxbG_tFS0Jw','ApzkloKc3Lc','jbdoyphEcsc'],
+A2:['gOMypAhVaXE','xL3jQzi7q_M','DTvgAxi5mVA','GH7x5w7mtjE','audbOVSuCds','2Yk1M6URsCU','MX5DVYoggxY','M25ieTfZ1eI','uvkY-UGeCmk','r1ZZn-vgwVc'],
+B1:['Qwv2TnDZVzQ','tnvj7e1n5xk','pWn_yaTVbSg','RCW-DCr580s','sh6LRcPVpI0','fQgnwZ04aoU','MK9VJmu2ehc','7daFlIIKjkE','3-0wwhtVg-U','dv1nJlSGj6o'],
+B2:['OX-XEa50fFw','ozi4FPic4QI','kKZV_GeBQ0I','d4mFF5dpAWo','XkBBbve3XbA','l4vkk39oqyA','5-ApW7hKggo','ozi4FPic4QI','kKZV_GeBQ0I','l4vkk39oqyA'],
+C1:['4qJM6fPN9c4']};
+/* Reading + Gap Fill: 2 набора на уровень; уроки чередуют наборы (нечётные — 1-й, чётные — 2-й) */
+const C={
+A1:{rule:'A1: глагол to be — I am, he/she/it is, we/you/they are. Have → has только с he/she/it. Present Simple: he/she/it + глагол с -s (cooks, works, goes).',s:[
+{t:'Tom is a student. He lives in London with his sister and his parents. Every morning he gets up at seven and drinks a cup of tea. He goes to school by bus because it is far. School starts at nine. After school he plays football with his friends in the park. In the evening he does his homework and watches TV. Tom loves Saturdays because he can sleep late.',
+ q:[['Where does Tom live?',['In London','In Paris','In Rome','In Berlin'],0],['Who does he live with?',['Alone','With friends','With his sister and parents','With his uncle'],2],['What time does school start?',['Seven','Eight','Ten','Nine'],3],['Why does Tom love Saturdays?',['No homework','He can sleep late','He plays football','He goes by bus'],1],['What does Tom do in the evening?',['Plays football','Goes to bed','Does homework and watches TV','Drinks tea'],2]],
+ g:'My name {is|s} Anna and I {am|m} twelve years old. I {live} in a small house with my family. My brother {has} a dog. It {is|s} big and brown. We {like|love} the dog very much. Every day my mother {cooks|makes} dinner. My father {works} in a bank. They {are|re} very kind.'},
+{t:'Sara goes to the market on Sunday. She buys apples, bread and milk. The apples are red and sweet. Bread costs two dollars. Sara has a big bag. Her friend Kate meets her at the market. They drink coffee together and talk about school. Then they walk home.',
+ q:[['When does Sara go to the market?',['On Monday','On Sunday','On Friday','On Tuesday'],1],['What colour are the apples?',['Green','Yellow','Red','Orange'],2],['How much is the bread?',['Two dollars','One dollar','Five dollars','Ten dollars'],0],['Who meets Sara?',['Anna','Kate','Tom','Her mother'],1],['What does Sara have?',['A small car','A big bag','A red hat','A dog'],1]],
+ g:'Sara {goes} to the market on Sunday. She {buys|gets} apples and milk. The apples {are|re} red. There {is|s} a café near the market. Kate and Sara {drink|have} coffee. They {talk|chat|speak} about school. Sara {has} a big bag. She {walks|goes} home.'}]},
+A2:{rule:'A2: Past Simple — вчера/в прошлом году → 2-я форма глагола (go → went, buy → bought, teach → taught); was/were для to be. Будущее: will + инфинитив или am/is/are going to.',s:[
+{t:'Last summer Maria visited her grandmother in the countryside. She travelled by train because it was cheaper than flying. The journey took five hours, but she enjoyed the views from the window. Every day they walked to the river and picked apples. In the evenings her grandmother taught her to bake a pie. Maria was sad when she left, but she promised to come back next year.',
+ q:[['How long was the journey?',['Two hours','Five hours','Ten hours','One day'],1],['What did her grandmother teach her?',['To swim','To knit','To drive','To bake a pie'],3],['Why did Maria choose the train?',['It was cheaper','It was faster','It was newer','It was quieter'],0],['How did Maria feel when she left?',['Angry','Bored','Sad','Tired'],2],['What did Maria and her grandmother do every day?',['Went shopping','Walked to the river and picked apples','Watched films','Cooked dinner'],1]],
+ g:'Last summer Maria {visited|saw} her grandmother. She {travelled|traveled|went} by train because it {was} cheaper. The journey {took|caught|got} five hours. They {walked|went} to the river every day. Her grandmother {taught|showed} her to bake a pie. Maria {was} sad when she left. Next year she {will|ll} come back. She {has} already bought a ticket.'},
+{t:'Ben lives in a big city. Last Saturday he went to the museum with his cousin. The tickets were expensive, but the exhibition about space was great. After that they had lunch in a small café. Ben ate a sandwich and his cousin ordered soup. It started to rain, so they took a taxi home. Next weekend they are going to visit the zoo.',
+ q:[['Where did Ben go on Saturday?',['To the zoo','To the cinema','To the museum','To the park'],2],['How was the exhibition?',['Boring','Great','Cheap','Short'],1],['What did his cousin order?',['Soup','A sandwich','Pizza','Salad'],0],['Why did they take a taxi?',['They were late','It was cheap','They were tired','It rained'],3],['What are they going to do next weekend?',['Visit the zoo','Go to the beach','Visit the museum','Stay home'],0]],
+ g:'Last Saturday Ben {went} to the museum. The tickets {were} expensive. They {had} lunch in a café. Ben {ate} a sandwich. It {started|began} to rain. They {took|caught|got} a taxi. Next weekend they {are|re} going to visit the zoo. Ben {wants|likes|hopes} to see the lions.'}]},
+B1:{rule:'B1: Second Conditional — If + Past Simple, would + инфинитив. Present Perfect (Continuous) — have/has (been) + 3-я форма/-ing. Passive — be + 3-я форма. Past Perfect — had + 3-я форма.',s:[
+{t:'More people work from home than ever before. Supporters say it saves time and money, while critics argue that it makes teamwork harder. Many companies now offer a hybrid model, which combines office days with remote days. Employees often report better work-life balance, yet some feel isolated without daily contact with colleagues. Managers, meanwhile, have had to learn new ways of measuring performance.',
+ q:[['What is a hybrid model?',['Only office work','Only remote work','A mix of office and remote days','Part-time work'],2],['What do critics say?',['It is too expensive','It makes teamwork harder','It saves time','It is illegal'],1],['What do some employees feel?',['Isolated','Overpaid','Overworked','Excited'],0],['What have managers had to learn?',['New languages','New ways of measuring performance','How to code','How to cook'],1],['What do employees often report?',['Lower salaries','Longer commutes','Better work-life balance','More meetings'],2]],
+ g:'If I {had} more time, I would learn Spanish. She has {been} studying English for two years. The report {was} written by our manager. I {used} to play chess as a child. He asked me {if|whether} I could help him. By the time we arrived, the film {had} already started. You {should|must|ought} see a doctor. I am looking forward {to} meeting you.'},
+{t:'Learning a language as an adult is challenging, but it is far from impossible. Research suggests that regular short sessions are more effective than one long lesson a week. Immersion also helps: watching films, reading news and talking to native speakers all speed up progress. However, many learners give up because they expect quick results. Experts recommend setting small, realistic goals and celebrating every step.',
+ q:[['What is more effective?',['One long lesson','Regular short sessions','Reading only','Sleeping more'],1],['What helps speed up progress?',['Immersion','Silence','Dictionaries only','Exams'],0],['Why do many learners give up?',['Lack of time','High prices','They expect quick results','Bad teachers'],2],['What do experts recommend?',['Huge goals','No goals','Only grammar','Small, realistic goals'],3],['What does the text say about learning a language as an adult?',['It is impossible','It is challenging but possible','It is easy','It is not useful'],1]],
+ g:'Learning a language {is|s} challenging, but not impossible. If you practise every day, you {will|ll} improve. She {has} lived in Spain since 2019. The film {was} so boring that we left early. I wish I {could} speak French. He is good {at} explaining grammar. Many learners give up {because|as|since} they expect quick results. You {must|should} not give up.'}]},
+B2:{rule:'B2: Third Conditional с инверсией — Had + подлежащее + 3-я форма. После deny/enjoy — герундий. Future Perfect — will have + 3-я форма. После Not only / No sooner / Little — инверсия (вспомогательный глагол перед подлежащим).',s:[
+{t:'Despite the rapid growth of renewable energy, fossil fuels still provide most of the world\'s power. Experts warn that unless governments invest heavily in infrastructure, the transition will be slower than predicted. Storage remains the biggest obstacle, since solar and wind output fluctuates. Nevertheless, falling battery prices have made previously unthinkable projects economically viable.',
+ q:[['What still provides most of the power?',['Solar panels','Wind farms','Fossil fuels','Nuclear plants'],2],['What do experts say is needed?',['Less energy use','Heavy investment in infrastructure','More oil drilling','Lower taxes'],1],['What is the biggest obstacle?',['Cost of land','Public opinion','Lack of scientists','Energy storage'],3],['What has made new projects viable?',['Falling battery prices','New laws','Oil shortages','Bigger cities'],0],['Why is storage a problem?',['Batteries are illegal','Solar and wind output fluctuates','Oil is cheaper','Grids are too new'],1]],
+ g:'Had I {known} about the delay, I would have called earlier. He denied {having} taken the money. By next year, she {will|ll} have finished her degree. Not only {did} he apologise, but he also paid. Unless governments {invest}, progress will be slow. She suggested {that} we leave early. The proposal, {which} was rejected, was too costly. I would rather you {didn\'t} smoke here.'},
+{t:'Social media has transformed the way people consume news. While it offers instant access to information, it also allows misinformation to spread at an unprecedented speed. Critics argue that algorithms reward sensational content, thereby distorting public debate. Defenders counter that these platforms give a voice to communities that were previously ignored. Regulators are now debating whether tech companies should bear responsibility for what users publish.',
+ q:[['What does social media offer?',['Instant access to information','Free devices','Better algorithms','Printed news'],0],['What do critics say about algorithms?',['They are too slow','They reward sensational content','They protect privacy','They are illegal'],1],['What do defenders say?',['Nothing changes','Platforms should close','Platforms empower ignored communities','News is reliable'],2],['What are regulators debating?',['Prices','Ad design','Server locations','Company responsibility for user content'],3],['What is said about misinformation?',['It is rare','It spreads at unprecedented speed','It is easy to stop','It only affects news sites'],1]],
+ g:'Social media has {transformed|changed} the way we read news. Misinformation spreads {faster|quicker} than ever. Were it not for algorithms, content {would|could|might} be less sensational. Critics insist that platforms {should|must|ought} be regulated. No sooner {had} the story been published than it went viral. The more we scroll, the less we {notice|see}. It is high time companies {took|caught|got} responsibility. Little {did} users realise the consequences.'}]},
+C1:{rule:'C1: инверсия после отрицательных наречий (Rarely do we…, Seldom has…, Only then did…). Were it not for = если бы не. Сослагательное наклонение после insist/suggest/essential — базовая форма (be, consider). Неограничительное придаточное — which/whose, не that.',s:[
+{t:'The notion that creativity is an innate gift has been increasingly challenged. Researchers contend that it is largely a product of deliberate practice and exposure to diverse ideas, which enable individuals to forge unexpected connections. Moreover, constraints often stimulate rather than stifle inventiveness, compelling people to devise novel solutions. Nevertheless, some scholars caution that an excessive emphasis on productivity may erode the very curiosity from which original thinking springs.',
+ q:[['What do researchers contend about creativity?',['It is purely innate','It comes mostly from deliberate practice','It cannot be studied','It declines with age'],1],['What does exposure to diverse ideas enable?',['Faster reading','Higher salaries','Unexpected connections','Less stress'],2],['What effect do constraints often have?',['They stimulate inventiveness','They kill motivation','They raise costs','They slow research'],0],['What do some scholars warn against?',['Too much rest','Too little data','Group work','Excessive emphasis on productivity'],3],['What may excessive emphasis on productivity erode?',['Curiosity','Deadlines','Funding','Team size'],0]],
+ g:'Rarely {do} we witness such dedication. Were it not {for} her support, the project would have collapsed. He insisted that she {be} present. The findings, {which} were published last year, remain controversial. Seldom {has} an idea been so widely debated. Hardly had she arrived {when} the meeting began. Had it {not} been for the funding, the study would have failed. Only then {did} they grasp the implications.'},
+{t:'Rapid urbanisation has reshaped the global landscape, with more than half of humanity now residing in cities. Proponents highlight the economic dynamism and cultural richness of dense settlements. Conversely, critics point to spiralling housing costs, pollution and the erosion of community ties. Urban planners increasingly advocate mixed-use neighbourhoods, whereby residents can work, shop and socialise within walking distance, thereby curbing dependence on cars.',
+ q:[['How many people live in cities?',['A quarter','More than half','Everyone','Very few'],1],['What do critics point to?',['Low taxes','Empty streets','Housing costs, pollution, weaker community ties','Too many parks'],2],['What do planners advocate?',['Mixed-use neighbourhoods','Bigger highways','Fewer shops','Rural relocation'],0],['What is a benefit of mixed-use areas?',['Higher rents','Less dependence on cars','More noise','Fewer jobs'],1],['What do proponents of dense cities highlight?',['Cheap housing','Economic dynamism and cultural richness','Clean air','Quiet streets'],1]],
+ g:'Rapid urbanisation {has} reshaped the global landscape. Not until the 2000s {did} most people live in cities. Were housing more affordable, fewer residents {would|could|might} leave. It is essential that planners {consider} local needs. The neighbourhood, {whose} streets are pedestrian-only, attracts many visitors. Scarcely {had} the project begun {when} costs soared. Hardly anyone {objected} to the plan. Cities {are|re} said to be growing fast.'}]}};
+const D=()=>Object.assign({rule:C[S.level].rule},C[S.level].s[(S.cur-1)%2]);
+
+/* ---------- СОСТОЯНИЕ ---------- */
+const $=s=>document.querySelector(s);
+const def={name:'',level:'A1',cur:1,done:{},essays:{},ans:{},streak:0,last:'',on:false};
+let S=Object.assign({},def,JSON.parse(localStorage.getItem('aura')||'{}'));
+document.documentElement.dataset.theme=S.theme||"dark";
+const save=()=>localStorage.setItem('aura',JSON.stringify(S));
+let view='dash';
+const K=()=>S.level+'-'+S.cur;
+const A=()=>S.ans[K()]||(S.ans[K()]={r:[],g:[]});
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const nz=x=>String(x).toLowerCase().replace(/[’'`.,;!?]/g,'').replace(/\s+/g,' ').trim();
+const okw=(v,w)=>!!nz(v)&&w.split('|').some(x=>nz(x)===nz(v));
+const cnt=t=>(t||'').split(/[.!?]+/).filter(s=>/[\p{L}\d]/u.test(s)).length;
+const lvDone=l=>{let n=0;for(let i=1;i<=10;i++)if(S.done[l+'-'+i])n++;return n};
+const total=()=>Object.keys(S.done).length;
+const status=n=>S.done[S.level+'-'+n]?'done':(n===1||S.done[S.level+'-'+(n-1)])?'prog':'lock';
+const firstOpen=l=>{for(let i=1;i<=10;i++)if(!S.done[l+'-'+i])return i;return 10};
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2600)}
+
+/* streak */
+(function(){const d=new Date(),t=d.toDateString();d.setDate(d.getDate()-1);
+if(S.last!==t){S.streak=S.last===d.toDateString()?S.streak+1:1;S.last=t;save()}})();
+
+/* ---------- ВИДЫ ---------- */
+function grid(){return `<div class="grid">${LV.map(l=>{const p=lvDone(l)*10;return `<button class="card glass lv ${l===S.level?'on':''}" data-act="lv" data-l="${l}"><b>${l}</b><div style="color:var(--mu);font-size:13px">${lvDone(l)}/10 уроков</div><div class="bar"><i style="width:${p}%"></i></div></button>`}).join('')}</div>`}
+function list(){const ic={done:['Пройден ✓','var(--ok)'],prog:['В процессе ⏳','var(--wn)'],lock:['Заблокирован 🔒','var(--mu)']};
+return `<h2>Уроки уровня ${S.level}</h2>`+Array.from({length:10},(_,i)=>{const n=i+1,s=status(n);return `<button class="ls" data-s="${s}" data-act="open" data-n="${n}"><b>Урок ${n}</b><em style="color:${ic[s][1]}">${ic[s][0]}</em></button>`}).join('')}
+function dash(){const t=total(),es=Object.keys(S.essays).filter(k=>S.done[k]).length;
+return `<h1>Привет, ${esc(S.name||'студент')}!</h1><p class="sub">Серия: ${S.streak} 🔥 — продолжайте каждый день.</p>
+<button class="btn" data-act="cont" style="margin-bottom:18px">Продолжить обучение</button>
+<div class="grid">
+<div class="card glass stat"><b>${t}<small style="font-size:16px;color:var(--mu)"> / 50</small></b><span>Завершено уроков</span></div>
+<div class="card glass stat"><b>${S.level}</b><span>Текущий уровень</span></div>
+<div class="card glass stat"><b>${Math.round(t*2)}%</b><span>Выполнение курса</span><div class="bar"><i style="width:${t*2}%"></i></div></div>
+<div class="card glass stat"><b>${es}</b><span>Выполненные эссе</span></div></div>
+<h2>Карта уровней</h2>${grid()}${list()}`}
+function levels(){return `<h1>Уровни и карта курсов</h1><p class="sub">Выберите уровень, затем откройте доступный урок.</p>${grid()}${list()}`}
+
+function rd(){const a=A();return D().q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>`+q[1].map((o,j)=>`<button class="opt ${a.r[i]===j?(j===q[2]?'ok':'bad'):''}" data-act="opt" data-q="${i}" data-o="${j}">${'ABCD'[j]}. ${o}</button>`).join('')+'</div>').join('')}
+function gp(){const a=A();let i=-1;return D().g.replace(/\{(.+?)\}/g,(_,w)=>{i++;const v=a.g[i]||'';return `<input data-g="${i}" value="${esc(v)}" size="${w.length+2}" class="${v?(okw(v,w)?'ok':'bad'):''}" autocomplete="off" aria-label="Пропуск ${i+1}">`})}
+function st(){const c=D(),a=A();let n=0,gn=0;c.g.replace(/\{(.+?)\}/g,(_,w)=>{if(okw(a.g[n]||'',w))gn++;n++;return ''});
+const rn=c.q.filter((q,i)=>a.r[i]===q[2]).length,en=cnt(S.essays[K()]);
+return {e:en>=9,r:rn===c.q.length,g:gn===n,en,rn,rt:c.q.length,gn,gt:n}}
+function lesson(){const c=D(),v=VID[S.level],id=v[S.cur-1]||v[0];
+return `<h1>${S.level} · Урок ${S.cur}</h1><p class="sub">Три модуля: Listening, Reading, Writing. Завершите все, чтобы открыть следующий урок.</p>
+<div class="glass card"><h2 style="margin-top:0">🎧 Listening<span class="bg r" id="b1"></span></h2>
+<iframe class="vid" src="https://www.youtube.com/embed/${id}?rel=0" title="Listening" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer;encrypted-media;picture-in-picture;fullscreen" allowfullscreen></iframe><p class="sub" style="margin:8px 0 0;font-size:13px">Видео не запускается? <a href="https://youtu.be/${id}" target="_blank" rel="noopener" style="color:var(--ac)">Открыть на YouTube ↗</a></p>
+<textarea id="essay" placeholder="Напишите эссе о том, что услышали (минимум 9 предложений)…">${esc(S.essays[K()]||'')}</textarea>
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px"><button class="btn g" data-act="mic">🎤 Сказать</button><button class="btn" data-act="chk">✓ Проверить текст</button><span class="cnt r" id="cnt" style="margin:0"></span></div><div id="chk"></div></div>
+<div class="glass card" style="margin-top:16px"><h2 style="margin-top:0">📖 Reading<span class="bg r" id="b2"></span></h2><p class="art">${c.t}</p><div id="rd">${rd()}</div></div>
+<div class="glass card" style="margin-top:16px"><h2 style="margin-top:0">✏️ Writing / Gap Fill<span class="bg r" id="b3"></span></h2><p class="gap" id="gp">${gp()}</p></div>
+<div style="margin-top:18px"><button class="btn" id="fin" data-act="done">Завершить урок</button><p class="sub" id="need" style="margin:8px 0 0"></p></div>`}
+function upd(){if(view!=='lesson')return;const s=st(),c=$('#cnt');
+c.textContent=`Предложений: ${s.en} / 9`;c.className='cnt '+(s.e?'g':'r');
+[['b1',s.e],['b2',s.r],['b3',s.g]].forEach(([i,o])=>{const x=$('#'+i);x.textContent=o?'Готово ✓':'Не выполнено';x.className='bg '+(o?'g':'r')});
+const ok=s.e&&s.r&&s.g;$('#fin').disabled=!ok;
+$('#need').textContent=ok?'Всё выполнено — можно завершать урок ✓':`Осталось: эссе ${s.en}/9 · Reading ${s.rn}/${s.rt} верно · Gap Fill ${s.gn}/${s.gt} верно`}
+function set(){return `<h1>Настройки и профиль</h1><div class="glass card" style="max-width:480px"><label>Имя</label><input class="nm" id="nm" value="${esc(S.name)}">
+<p class="sub">Уровень: ${S.level}. Все данные хранятся только в вашем браузере (localStorage).</p>
+<button class="btn g" data-act="reset" style="color:var(--bad)">Сбросить весь прогресс</button></div>`}
+
+/* ---------- СЛОВАРЬ И ПРАВИЛА ---------- */
+const W={
+A1:['student=студент;sister=сестра;morning=утро;homework=домашнее задание;park=парк;late=поздно','market=рынок;bread=хлеб;milk=молоко;sweet=сладкий;bag=сумка;together=вместе'],
+A2:['countryside=сельская местность;journey=поездка;cheaper=дешевле;view=вид;promise=обещать;bake=печь','museum=музей;exhibition=выставка;expensive=дорогой;cousin=двоюродный брат/сестра;order=заказывать;taxi=такси'],
+B1:['remote=удалённый;hybrid=гибридный;supporter=сторонник;critic=критик;isolated=изолированный;performance=эффективность','challenging=сложный;immersion=погружение;native speaker=носитель языка;progress=прогресс;realistic=реалистичный;celebrate=отмечать'],
+B2:['renewable=возобновляемый;infrastructure=инфраструктура;fossil fuel=ископаемое топливо;obstacle=препятствие;fluctuate=колебаться;viable=жизнеспособный','misinformation=дезинформация;unprecedented=беспрецедентный;distort=искажать;sensational=сенсационный;regulator=регулятор;bear responsibility=нести ответственность'],
+C1:['innate=врождённый;deliberate=целенаправленный;stifle=подавлять;inventiveness=изобретательность;erode=разрушать;contend=утверждать','urbanisation=урбанизация;residing=проживающий;spiralling=стремительно растущий;erosion=размывание;advocate=выступать за;curb=сдерживать']};
+const R={
+A1:[["Глагол to be","I am, he/she/it is, we/you/they are. Отрицание: am not, isn't, aren't. Вопрос: Are you…?","I am twelve. She is a student. They are kind."],["Present Simple","Привычки и факты. С he/she/it к глаголу добавляем -s/-es. Вопрос и отрицание: do/does + инфинитив.","He works in a bank. Does she like tea? I don't drink coffee."],["have / has","have — с I/you/we/they; has — с he/she/it.","My brother has a dog. We have a house."]],
+A2:[["Past Simple","Законченное действие в прошлом. Правильные глаголы +ed, неправильные — 2-я форма. Вопрос и отрицание: did + инфинитив.","She visited her grandmother. I bought bread. Did you go?"],["Будущее: will / going to","will — спонтанное решение или прогноз; going to — заранее намеченный план.","I will cook dinner. We are going to visit the zoo."],["Сравнительная степень","Короткие прилагательные +er, длинные — more + прилагательное, затем than.","Trains are cheaper than planes. It is more expensive."]],
+B1:[["Present Perfect / Continuous","have/has + 3-я форма — результат или опыт; have/has been + -ing — действие, длящееся до сих пор.","I have seen it. She has been studying for two years."],["Second Conditional","If + Past Simple, would + инфинитив — нереальная ситуация в настоящем.","If I had more time, I would learn Spanish."],["Passive Voice","be + 3-я форма — важно действие, а не исполнитель.","The report was written by our manager."]],
+B2:[["Third Conditional","If + Past Perfect, would have + 3-я форма. Инверсия: Had I known…","Had I known, I would have called earlier."],["Инверсия: Not only / No sooner","После отрицательных выражений вспомогательный глагол стоит перед подлежащим.","Not only did he apologise, but he also paid. No sooner had she left than it rained."],["Future Perfect","will have + 3-я форма — действие завершится к моменту в будущем.","By next year she will have finished her degree."]],
+C1:[["Инверсия с наречиями","Rarely, Seldom, Hardly, Only then, Not until + вспомогательный глагол + подлежащее.","Rarely do we see such dedication. Only then did they understand."],["Subjunctive","После insist, suggest, essential, vital — базовая форма глагола без -s.","He insisted that she be present."],["Were it not for / Had it not been for","Обороты «если бы не».","Were it not for her support, the project would fail."]]};
+const wordsOf=(l,n)=>(W[l][(n-1)%2]||'').split(';').map(x=>x.split('='));
+function allWords(){const m=new Map();LV.forEach(l=>{for(let n=1;n<=10;n++)if(S.done[l+'-'+n])wordsOf(l,n).forEach(([w,t])=>{if(!m.has(w))m.set(w,[t,l+' · Урок '+n])})});return m}
+function dl(q){q=(q||'').toLowerCase();let o='';allWords().forEach(([t,src],w)=>{if(!q||(w+t).toLowerCase().includes(q))o+=`<div class="wd"><b>${w}</b><span>${t}</span><small>${src}</small><button class="btn g" data-act="speak" data-t="${w}" aria-label="Озвучить" style="padding:2px 10px">🔊</button></div>`});return o||'<p class="sub">Ничего нет — завершите урок, и слова появятся здесь.</p>'}
+function dict(){return `<h1>📖 Словарь</h1><p class="sub">Слов и терминов: <b>${allWords().size}</b>. Новые слова добавляются после каждого пройденного урока.</p><input class="nm" id="dq" placeholder="Поиск по словам…" autocomplete="off"><div id="dl">${dl('')}</div>`}
+function rules(){return `<h1>📐 Правила</h1><p class="sub">Транскрипт правил по уровням. Нажмите 🔊, чтобы прослушать примеры.</p>`+LV.map(l=>`<h2>${l}${l===S.level?' · ваш уровень':''}</h2>`+R[l].map(([t,x,e])=>`<div class="glass card" style="margin-bottom:10px"><b>${t}</b><p class="art" style="margin:6px 0">${x}</p><p style="color:var(--ac)">${e} <button class="btn g" data-act="speak" data-t="${esc(e)}" aria-label="Озвучить" style="padding:2px 10px">🔊</button></p></div>`).join('')).join('')}
+function speak(t){if(!window.speechSynthesis)return toast('Озвучка не поддерживается');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.9;speechSynthesis.speak(u)}
+
+/* ---------- МИКРОФОН И ПРОВЕРКА ТЕКСТА ---------- */
+let rec=null;
+function mic(b){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR)return toast('Распознавание речи не поддерживается — откройте в Chrome или Edge');
+if(rec){rec.stop();return}
+rec=new SR();rec.lang='en-US';rec.continuous=true;rec.interimResults=false;b.classList.add('rec');b.textContent='⏹ Стоп';
+rec.onresult=e=>{let t='';for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)t+=e.results[i][0].transcript;const ta=$('#essay');if(!ta)return;
+t=t.trim();if(t)t=t[0].toUpperCase()+t.slice(1)+'.';ta.value=(ta.value.trim()+' '+t).trim();ta.dispatchEvent(new Event('input',{bubbles:true}))};
+rec.onerror=()=>toast('Нет доступа к микрофону (нужен https или localhost)');
+rec.onend=()=>{rec=null;b.classList.remove('rec');b.textContent='🎤 Сказать'};
+rec.start()}
+const RX=[
+[/\b(he|she|it)\s+(go|have|do|like|want|live|work|play|eat|watch|read|make|take|come|need|love|study|drink|speak|write|get|see|know|think|say)\b/i,'После he/she/it глагол получает -s/-es (he goes, she has)'],
+[/\b(i|you|we|they)\s+(is|has|does)\b/i,'С I/you/we/they нужны am/are, have, do'],
+[/\bI\s+are\b|\b(he|she|it)\s+(are|am)\b|\b(we|you|they)\s+am\b/i,'Неверная форма to be: I am, he/she/it is, we/you/they are'],
+[/\b(he|she|it)\s+(don't|dont|do not)\b/i,"С he/she/it отрицание — doesn't / does not"],
+[/\b(dont|doesnt|cant|wont|didnt|isnt|arent|wasnt|im|ive|thats)\b/i,"Пропущен апостроф (don't, can't, I'm)"],
+[/\ba\s+(?!uni|use|one|eu)[aeiou]\w*/i,'Перед гласным звуком нужен артикль an'],
+[/\ban\s+(?!hour|honest|heir|honou?r)[^aeiou\s]\w*/i,'Перед согласным звуком нужен артикль a'],
+[/\bdid\s+(went|saw|ate|had|took|came|made|got|\w+ed)\b/i,'После did глагол стоит в начальной форме (did go, did play)'],
+[/\bmore\s+(better|bigger|easier|worse|cheaper|faster)\b/i,'Лишнее more: степень сравнения образуется одним способом'],
+[/\b(peoples|informations|advices|furnitures|childs|mans|womans|knowledges)\b/i,'Неверное число: people, information, advice — без -s; children, men, women'],
+[/\bam\s+agree\b/i,'Правильно: I agree (без am)'],
+[/\bhave\s+\d+\s+years?\b/i,'Возраст: I am 12 years old (am, а не have)'],
+[/\b(\w+)\s+\1\b/i,'Повтор слова'],
+[/\bi\b/,'Местоимение I всегда пишется с заглавной'],
+[/ {2,}|\s[,.!?]/,'Лишний пробел']];
+function check(t){const out=[];(t.match(/[^.!?]+[.!?]*/g)||[]).forEach(p=>{const s=p.trim();if(!/[\p{L}]/u.test(s))return;const errs=[];
+if(/^[a-z]/.test(s))errs.push(['Предложение должно начинаться с заглавной буквы',s.split(/\s/)[0]]);
+RX.forEach(([r,m])=>{const x=s.match(r);if(x)errs.push([m,x[0]])});
+if(!/[.!?]$/.test(s))errs.push(['В конце предложения нет точки, ! или ?',null]);out.push({s,errs})});return out}
+function report(r){const bad=r.filter(x=>x.errs.length),n=bad.reduce((a,x)=>a+x.errs.length,0);
+let o=`<p class="cnt ${n?'r':'g'}">${n?`Ошибок: ${n} · предложений с ошибками: ${bad.length} из ${r.length}`:'Ошибок не найдено ✓'}</p>`;
+r.forEach((x,i)=>{let s=esc(x.s);x.errs.forEach(e=>{if(e[1])s=s.split(esc(e[1])).join('<mark class="mk">'+esc(e[1])+'</mark>')});
+o+=`<div class="err ${x.errs.length?'':'good'}"><b>${i+1}.</b> ${s}${x.errs.map(e=>`<div style="color:var(--bad);font-size:13px">⚠ ${e[0]}</div>`).join('')}</div>`});
+return o+'<p class="sub" style="font-size:12px">Проверка идёт по встроенным правилам: находит типичные ошибки, но это не полноценный ИИ и не заменяет учителя.</p>'}
+function doChk(){const t=(S.essays[K()]||'').trim();if(!t)return toast('Сначала напишите или наговорите текст');$('#chk').innerHTML=report(check(t))}
+
+/* ---------- РЕНДЕР / НАВИГАЦИЯ ---------- */
+const NAV=[['dash','📊 Дашборд / Мой Прогресс'],['levels','📚 Выбор Уровня и Карта Курсов'],['lesson','✏️ Текущий Урок'],['dict','📖 Словарь'],['rules','📐 Правила'],['chat','🤖 AI Tutor Chat Studio'],['set','⚙️ Настройки и Профиль']];
+$('#nav').innerHTML=NAV.map(([k,t])=>`<button data-v="${k}">${t}</button>`).join('');
+function side(){$('#th').textContent=S.theme==='light'?'🌙 Тёмная тема':'☀️ Светлая тема';$('#pn').textContent=S.name||'Гость';$('#av').textContent=(S.name||'?')[0].toUpperCase();$('#pl').textContent='Уровень '+S.level;$('#ps').textContent='🔥 '+S.streak+' дн. подряд';
+document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===view))}
+function render(){const m=$('#main');m.classList.remove('fade');void m.offsetWidth;m.classList.add('fade');
+m.innerHTML=({dash,levels,lesson,dict,rules,set})[view]();side();upd()}
+function go(v){if(v==='chat'){chat(true);$('aside').classList.remove('open');return}view=v;$('aside').classList.remove('open');render()}
+$('#nav').onclick=e=>{const b=e.target.closest('button');if(b)go(b.dataset.v)};
+$('#th').onclick=()=>{S.theme=S.theme==='light'?'dark':'light';document.documentElement.dataset.theme=S.theme;save();side()};
+$('#burger').onclick=()=>$('aside').classList.toggle('open');
+
+$('#main').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
+if(a==='lv'){S.level=b.dataset.l;S.cur=firstOpen(S.level);save();render()}
+else if(a==='open'){if(b.dataset.s==='lock')return toast('Сначала завершите предыдущий урок 🔒');S.cur=+b.dataset.n;save();go('lesson')}
+else if(a==='cont'){S.cur=firstOpen(S.level);save();go('lesson')}
+else if(a==='opt'){A().r[+b.dataset.q]=+b.dataset.o;save();$('#rd').innerHTML=rd();upd()}
+else if(a==='done'){const s=st();if(!(s.e&&s.r&&s.g))return;const nw=wordsOf(S.level,S.cur).length;S.done[K()]=1;S.cur=Math.min(10,S.cur+1);save();toast('Урок завершён! +'+nw+' слов в словарь 📖');go('levels')}
+else if(a==='mic')mic(b);else if(a==='chk')doChk();else if(a==='speak')speak(b.dataset.t);
+else if(a==='reset'){if(confirm('Удалить весь прогресс?')){localStorage.removeItem('aura');location.reload()}}});
+$('#main').addEventListener('input',e=>{const t=e.target;
+if(t.id==='essay'){S.essays[K()]=t.value;save();upd()}
+else if(t.dataset.g!==undefined){const i=+t.dataset.g,w=[...D().g.matchAll(/\{(.+?)\}/g)][i][1];A().g[i]=t.value;save();t.className=t.value.trim()?(okw(t.value,w)?'ok':'bad'):'';upd()}
+else if(t.id==='dq')$('#dl').innerHTML=dl(t.value);
+else if(t.id==='nm'){S.name=t.value.trim();save();side()}});
+
+/* ---------- ОНБОРДИНГ ---------- */
+function onboard(){const o=$('#ob');o.style.display='grid';
+o.innerHTML=`<div class="glass"><h1>Добро пожаловать в Bilimup ✦</h1><p class="sub">Как вас зовут?</p><input class="nm" id="on" placeholder="Ваше имя" autocomplete="off">
+<button class="btn" id="o1" style="width:100%;margin-bottom:8px">Начать с A1 Lesson 1</button>
+<button class="btn g" id="o2" style="width:100%">Пройти экспресс-тест / выбрать свой уровень</button><div class="chips" id="oc" style="display:none"></div></div>`;
+const fin=l=>{S.name=$('#on').value.trim()||'Студент';S.level=l;S.cur=1;S.on=true;save();o.style.display='none';view=l==='A1'?'lesson':'dash';render()};
+$('#o1').onclick=()=>fin('A1');
+$('#o2').onclick=()=>{const c=$('#oc');c.style.display='flex';c.innerHTML='<p class="sub" style="width:100%;margin:0">Выберите уровень (экспресс-тест: если понимаете простой текст уровня — начинайте с него):</p>'+LV.map(l=>`<button data-l="${l}">${l}</button>`).join('')};
+$('#oc').onclick=e=>{const b=e.target.closest('button[data-l]');if(b)fin(b.dataset.l)}}
+
+/* ---------- AI-ТЬЮТОР (локальный, правила) ---------- */
+function chat(open){const c=$('#chat');c.classList.toggle('open',open===undefined?!c.classList.contains('open'):open);if(c.classList.contains('open')&&!$('#msgs').children.length)say('b','Привет! Я Bilimup AI. Объясню грамматику и дам подсказки, но готовые ответы на Reading и Gap Fill не выдаю — вы справитесь сами 💪')}
+function say(w,t){const d=document.createElement('div');d.className='m '+w;d.textContent=t;$('#msgs').append(d);$('#msgs').scrollTop=1e9}
+function tutor(m){const l=m.toLowerCase(),r=C[S.level].rule;
+if(/ответ|answer|solution|реши|решени|какой вариант|правильн|что вписать|which option|fill (in )?the/.test(l))
+ return 'Прямой ответ я не дам — так знание не закрепится. Вот подсказка.\n\n📌 '+r+'\n\nGap Fill: посмотрите на слово перед пропуском и время в предложении. Reading: найдите в тексте ключевое слово из вопроса и перечитайте это предложение.';
+if(/эссе|essay|предложен/.test(l))return 'Эссе: минимум 9 предложений. Структура: 1) о чём видео, 2) 3–4 факта, 3) ваше мнение, 4) вывод. Пишите короткими простыми предложениями.';
+if(/present|настоящ/.test(l))return 'Present Simple — привычки и факты: I work, he works. Вопрос: Do/Does + подлежащее + глагол.';
+if(/past|прошед/.test(l))return 'Past Simple — законченные действия в прошлом: worked, went. Вопрос и отрицание — did/didn\'t + инфинитив.';
+if(/article|артикл/.test(l))return 'a/an — первое упоминание (a book, an apple); the — известный предмет (the book on the table). Без артикля — общие понятия во мн. числе.';
+if(/привет|hello|hi\b/.test(l))return 'Привет, '+(S.name||'друг')+'! С чем помочь: грамматика, эссе или подсказка к заданию?';
+return 'Хороший вопрос! Правило для вашего уровня:\n\n📌 '+r+'\n\nСпросите про конкретное время, артикли или структуру эссе.'}
+function send(){const i=$('#ci'),m=i.value.trim();if(!m)return;i.value='';say('u',m);setTimeout(()=>say('b',tutor(m)),350)}
+$('#fab').onclick=()=>chat();$('#cs').onclick=send;$('#ci').onkeydown=e=>{if(e.key==='Enter')send()};
+
+/* ---------- СТАРТ ---------- */
+if(!S.on)onboard();
+render();
+</script>
+</body>
+</html>
